@@ -86,8 +86,8 @@ def main():
 		print("    {0} %: ${1}".format(percent*100., taxed))
 
 	print("Total taxes owed: ${}".format(taxes))
-	tax_percent = taxes/stipend*100.0
-	print("This is {} % of your graduate stipend.".format(tax_percent))
+	tax_percent = taxes/(stipend+other)*100.0
+	print("This is {} % of your graduate stipend (plus other income from a spouse if applicable).".format(tax_percent))
 
 if __name__ == "__main__":
 	
