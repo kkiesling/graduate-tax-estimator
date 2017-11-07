@@ -44,20 +44,23 @@ def main():
 			  \nPlease enter 1, 2, 3, or 4.")
 		return
 	
-	if cat == '1':
-		tax_cat = single
-	elif cat == '2':
-		tax_cat = head
-	elif cat == '3':
-		tax_cat = married_jt
-	elif cat == '4':
-		tax_cat = married_si
-	
-	
 	stipend = float(raw_input("What is your yearly graduate stipend (pre-tax)?\n >> "))
 	tuition = float(raw_input("What is your yearly graduate school tuition?\n >> "))
+	
+	if cat == '1':
+		tax_cat = single
+		other = 0.0
+	elif cat == '2':
+		tax_cat = head
+		other = 0.0
+	elif cat == '3':
+		tax_cat = married_jt
+		other = float(raw_input("What is your spouse's taxable income?\n >> "))
+	elif cat == '4':
+		tax_cat = married_si
+		other = 0.0
 
-	total_income = stipend + tuition
+	total_income = stipend + tuition + other
 	
 	taxes = 0.0
 	remaining_income = total_income
