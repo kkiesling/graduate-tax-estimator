@@ -32,3 +32,11 @@ If you would like to contribute but do not know how to code:
 
 2. Describe what you would like to see changed or added. Or let me know
 if something is not working.
+
+# DISCLAIMER
+
+This is in no way, shape, or form, a replacement for calculating your
+actual taxes. I am also not a tax expert by any means. I try to keep
+this script up to date with information as I read/understand it. This
+is only meant to give you a general idea of how graduate student taxes
+will change.
