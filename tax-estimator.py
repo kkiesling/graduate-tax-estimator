@@ -1,24 +1,42 @@
 import sys
 print (sys.argv)
 
-single =  { .12:  [     0.,   45000.],
-			  .25:  [ 45001.,  200000.],
-			  .35:  [200001., 500000.],
-			  .396:	[500001., 900000.] }
-head =       {.1:   [     0.,  13350.],
+single =  [{ .12: [0., 45000.], .25: [ 45001., 200000.],
+			 .35: [200001., 500000.], .396: [500001., 900000.] },
+		   {  .1: [0., 9325.], .15: [  9326.,  37950.],
+			 .25: [ 37951., 91900.], .28: [ 91901., 191650.],
+			 .33:  [191651., 416700.], .35:  [416701., 418400.],
+			 .396:	[418401., 800000.]}
+		 ]
+head =  [{.1:   [     0.,  13350.],
 			  .15:  [ 13351.,  50800.],
 			  .25:  [ 50801., 131200.],
 			  .28:  [131201., 212500.],
 			  .33:  [212501., 416700.],
 			  .35:  [416701., 444550.],
-			  .396:	[444551., 800000.]}
-married_jt = {.1:   [     0.,  18650.],
+			  .396:	[444551., 800000]},
+			  {.1:   [     0.,  13350.],
+			  .15:  [ 13351.,  50800.],
+			  .25:  [ 50801., 131200.],
+			  .28:  [131201., 212500.],
+			  .33:  [212501., 416700.],
+			  .35:  [416701., 444550.],
+			  .396:	[444551., 800000]} ]
+			 
+married_jt = [{.1:   [     0.,  18650.],
 			  .15:  [ 18651.,  75900.],
 			  .25:  [ 75901., 233350.],
 			  .28:  [153101., 212500.],
 			  .33:  [233351., 416700.],
 			  .35:  [416701., 470700.],
-			  .396:	[470701., 800000.]}	
+			  .396:	[470701., 800000.]},
+			  {.1:   [     0.,  18650.],
+			  .15:  [ 18651.,  75900.],
+			  .25:  [ 75901., 233350.],
+			  .28:  [153101., 212500.],
+			  .33:  [233351., 416700.],
+			  .35:  [416701., 470700.],
+			  .396:	[470701., 800000.]}]
 
 
 def get_category():
@@ -122,21 +140,25 @@ def main():
 	# determine category that person is filing
 	tax_cat, stipend, tuition, other, exempt_old, deduction_old, deduction_new = get_category()
 
+	# calculate old:
+	print("\n*** Calculating estimated taxes based on current taxes ***\n")
+	total_income = stipend + other
+	exemption = exempt_old
+	taxes_old = calculate_taxes(tax_cat[1], total_income, deduction_old, exemption, stipend, other)
+	
 	# calculate total income by view of new tax cuts
 	print("\n*** Calculating estimated taxes based on new taxes ***\n")
 	total_income = stipend + tuition + other
 	exemption = 0.0
-	taxes_new = calculate_taxes(tax_cat, total_income, deduction_new, exemption, stipend, other)
+	taxes_new = calculate_taxes(tax_cat[0], total_income, deduction_new, exemption, stipend, other)
 
-	# calculate old:
-	print("\n*** Calculating estimated taxes based on current taxes ***\n")
-	print("IMPORTANT NOTE: current tax brackets in this script are actually the proposed brackets.\nThis calculation is not reliable just yet.")
-	total_income = stipend + other
-	exemption = exempt_old
-	taxes_old = calculate_taxes(tax_cat, total_income, deduction_old, exemption, stipend, other)
-		
-	print(taxes_old, taxes_new)
-	
+	# calculate change in taxes
+	print("")
+	change = taxes_new/taxes_old*100.
+	if change > 100:
+		print("This change increases your taxes by {} %.".format(change))
+	if change <= 100:
+		print("LUCKY YOU! You will only pay {} % of your current taxes.".format(change))
 
 if __name__ == "__main__":
 	
