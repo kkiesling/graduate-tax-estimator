@@ -1,10 +1,10 @@
 import sys
 print (sys.argv)
 
-single =     {.12:  [     0.,   45000.],
+single =  { .12:  [     0.,   45000.],
 			  .25:  [ 45001.,  200000.],
 			  .35:  [200001., 500000.],
-			  .396:	[500001., 900000.]}
+			  .396:	[500001., 900000.] }
 head =       {.1:   [     0.,  13350.],
 			  .15:  [ 13351.,  50800.],
 			  .25:  [ 50801., 131200.],
@@ -133,6 +133,7 @@ def main():
 
 	# calculate total income by view of new tax cuts
 	print("\n*** Calculating estimated taxes based on current taxes ***\n")
+	print("IMPORTANT NOTE: current tax brackets in this script are actually the proposed brackets.\nThis calculation is not reliable just yet.")
 	deduction = 12000.
 	total_income = stipend + tuition + other
 	exemption = 0.0
