@@ -69,6 +69,8 @@ def get_category():
 		tax_cat = single
 		other = 0.0
 		exempt_old = 4050.
+		deduction_old = 6350.
+		deduction_new = 12200.
 		
 	elif cat == 2:
 		# Head of household
@@ -76,6 +78,8 @@ def get_category():
 		other = 0.0
 		num = float(raw_input("How many exemptions do you usually file?\n >>"))		
 		exempt_old = 4050.*num
+		deduction_old = 9350.
+		deduction_new = 18300.
 		
 	elif cat == 3:
 		# married, filing jointly
@@ -83,8 +87,10 @@ def get_category():
 		other = float(raw_input("What is your spouse's taxable income?\n >> "))
 		num = float(raw_input("How many exemptions do you usually file?\n >>"))
 		exempt_old = 4050.*num
+		deduction_old = 12700.
+		deduction_new = 24400.
 	
-	return tax_cat, stipend, tuition, other, exempt_old
+	return tax_cat, stipend, tuition, other, exempt_old, deduction_old, deduction_new
 	
 	
 def calculate_taxes(tax_cat, total_income, deduction, exemption, stipend, other):
@@ -121,22 +127,20 @@ def calculate_taxes(tax_cat, total_income, deduction, exemption, stipend, other)
 def main():
 	
 	# determine category that person is filing
-	tax_cat, stipend, tuition, other, exempt_old = get_category()
+	tax_cat, stipend, tuition, other, exempt_old, deduction_old, deduction_new = get_category()
 
 	# calculate total income by view of new tax cuts
-	print("\n*** Calculating estimated taxes based on current taxes ***\n")
-	print("IMPORTANT NOTE: current tax brackets in this script are actually the proposed brackets.\nThis calculation is not reliable just yet.")
-	deduction = 12000.
+	print("\n*** Calculating estimated taxes based on new taxes ***\n")
 	total_income = stipend + tuition + other
 	exemption = 0.0
-	taxes_new = calculate_taxes(tax_cat, total_income, deduction, exemption, stipend, other)
+	taxes_new = calculate_taxes(tax_cat, total_income, deduction_new, exemption, stipend, other)
 
 	# calculate old:
-	print("\n*** Calculating estimated taxes based on new taxes ***\n")
-	deduction = 6350.
+	print("\n*** Calculating estimated taxes based on current taxes ***\n")
+	print("IMPORTANT NOTE: current tax brackets in this script are actually the proposed brackets.\nThis calculation is not reliable just yet.")
 	total_income = stipend + other
 	exemption = exempt_old
-	taxes_old = calculate_taxes(tax_cat, total_income, deduction, exemption, stipend, other)
+	taxes_old = calculate_taxes(tax_cat, total_income, deduction_old, exemption, stipend, other)
 		
 	print(taxes_old, taxes_new)
 	
