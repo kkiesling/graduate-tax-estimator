@@ -47,13 +47,12 @@ def get_category():
 		\n   1. Single\
 		\n   2. Head of Household\
 		\n   3. Married, filed jointly\
-		\n   4. Married, filed separately\
 		\n >>  "))
 
 	# check that submitted cateorgy is acceptable.
-	if cat not in [1, 2, 3, 4]:
+	if cat not in [1, 2, 3]:
 		print("Sorry, I don't recognize that category.\
-			  \nPlease enter 1, 2, 3, or 4.")
+			  \nPlease enter 1, 2, or 3.")
 		return
 	
 	# warning about reliabilty of code if not filing as single
@@ -82,13 +81,6 @@ def get_category():
 		# married, filing jointly
 		tax_cat = married_jt
 		other = float(raw_input("What is your spouse's taxable income?\n >> "))
-		num = float(raw_input("How many exemptions do you usually file?\n >>"))
-		exempt_old = 4050.*num
-	
-	elif cat == 4:
-		# married, filed separately
-		tax_cat = married_si
-		other = 0.0
 		num = float(raw_input("How many exemptions do you usually file?\n >>"))
 		exempt_old = 4050.*num
 	
