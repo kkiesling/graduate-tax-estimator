@@ -104,11 +104,11 @@ def get_category():
 	return tax_cat, stipend, tuition, other, exempt_old, deduction_old, deduction_new
 	
 	
-def calculate_taxes(tax_cat, total_income, deduction, exemption, stipend, other):
+def calculate_taxes(tax_cat, total_income, deduction, exemption, stipend, other, health):
 	
 	# initiate counters
 	taxes = 0.0
-	to_be_taxed = total_income - deduction - exemption
+	to_be_taxed = total_income - deduction - exemption + health
 	remaining_income = to_be_taxed
 	
 	# calculate taxes owed for each bracket
@@ -141,17 +141,20 @@ def main():
 	# determine category that person is filing
 	tax_cat, stipend, tuition, other, exempt_old, deduction_old, deduction_new = get_category()
 
+	# get info on health insurance
+	health = float(raw_input("How much do you pay each year in health insurance?\n >> "))
+	
 	# calculate old:
 	print("\n*** Calculating estimated taxes based on current taxes ***\n")
 	total_income = stipend + other
 	exemption = exempt_old
-	taxes_old = calculate_taxes(tax_cat[1], total_income, deduction_old, exemption, stipend, other)
+	taxes_old = calculate_taxes(tax_cat[1], total_income, deduction_old, exemption, stipend, other, -health)
 	
 	# calculate total income by view of new tax cuts
 	print("\n*** Calculating estimated taxes based on new taxes ***\n")
 	total_income = stipend + tuition + other
 	exemption = 0.0
-	taxes_new = calculate_taxes(tax_cat[0], total_income, deduction_new, exemption, stipend, other)
+	taxes_new = calculate_taxes(tax_cat[0], total_income, deduction_new, exemption, stipend, other, health)
 
 	# calculate change in taxes
 	print("")
