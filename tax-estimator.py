@@ -158,11 +158,11 @@ def main():
 
 	# calculate change in taxes
 	print("")
-	change = taxes_new/taxes_old*100.
-	if change > 100:
+	change = (taxes_new - taxes_old)/taxes_old*100.
+	if change > 0.:
 		print("This change increases your taxes by {} %.".format(change))
-	if change <= 100:
-		print("LUCKY YOU! You will only pay {} % of your current taxes.".format(change))
+	if change <= 0.:
+		print("LUCKY YOU! You will pay {} % less.".format(-change))
 
 if __name__ == "__main__":
 	
