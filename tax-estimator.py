@@ -87,7 +87,7 @@ def get_category():
 		# Head of household
 		tax_cat = head
 		other = 0.0
-		num = float(raw_input("How many exemptions do you usually file?\n >>"))		
+		num = float(raw_input("How many exemptions do you usually file?\n >> "))		
 		exempt_old = 4050.*num
 		deduction_old = 9350.
 		deduction_new = 18300.
@@ -96,7 +96,7 @@ def get_category():
 		# married, filing jointly
 		tax_cat = married_jt
 		other = float(raw_input("What is your spouse's taxable income?\n >> "))
-		num = float(raw_input("How many exemptions do you usually file?\n >>"))
+		num = float(raw_input("How many exemptions do you usually file?\n >> "))
 		exempt_old = 4050.*num
 		deduction_old = 12700.
 		deduction_new = 24400.
@@ -108,19 +108,20 @@ def calculate_taxes(tax_cat, total_income, deduction, exemption, stipend, other)
 	
 	# initiate counters
 	taxes = 0.0
-	remaining_income = total_income - deduction - exemption
+	to_be_taxed = total_income - deduction - exemption
+	remaining_income = to_be_taxed
 	
 	# calculate taxes owed for each bracket
 	print("You would owe the following amount for each tax level:")
 	
 	for percent, bracket in sorted(tax_cat.iteritems()):
 		
-		if total_income > bracket[1]:
+		if to_be_taxed > bracket[1]:
 			taxable = bracket[1] - bracket[0]
 			taxed = percent*taxable
 			remaining_income -= taxable
 		
-		elif bracket[0] <= total_income <= bracket[1]:
+		elif bracket[0] <= to_be_taxed <= bracket[1]:
 			taxed = percent*remaining_income
 		
 		else:
